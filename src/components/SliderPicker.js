@@ -64,10 +64,9 @@ export class SliderPicker extends Component {
 
     // Default border styles in case nothing is passed.
     this.defaultSliderInnerBorderStyles = {
-      borderWidth: vw(1) / 2,
-      borderColor: '#d9dce4', 
-      borderBottomColor: '#f1f4f5',
-      borderRadius: 50,
+      borderWidth: 1,
+      borderColor: '#666666',
+      borderRadius: 1,
     }
 
     // Default styles for View container of accessibility/screen reader numeric input replacement
@@ -82,7 +81,7 @@ export class SliderPicker extends Component {
       padding: vw(4),
       borderTopLeftRadius: 10,
       borderTopRightRadius: 10,
-      ... Platform.isPad ? ({
+      ...Platform.isPad ? ({
         marginTop: vh(4)
       }) : null
     }
@@ -91,7 +90,7 @@ export class SliderPicker extends Component {
     this.defaultNumericInputTextInputStyles = {
       flex: 1,
       fontSize: Math.ceil(vw(3) * 1.3),
-      ... Platform.select({
+      ...Platform.select({
         ios: {
           marginTop: vw(2)
         },
@@ -122,10 +121,10 @@ export class SliderPicker extends Component {
     //
     // Functional Props checking
     //
-    this.callback =  this.props.callback ? this.props.callback : () => {};
+    this.callback = this.props.callback ? this.props.callback : () => { };
     this.defaultValue = this.defaultValueCheckHandler(this.props.defaultValue) ? this.props.defaultValue : 5;
     this.maxValue = this.props.maxValue ? this.props.maxValue : 10;
-    this.slideBeginCallback = this.props.slideBeginCallback ? this.props.slideBeginCallback : () => {};
+    this.slideBeginCallback = this.props.slideBeginCallback ? this.props.slideBeginCallback : () => { };
     this.errorToleranceMargin = this.props.errorToleranceMargin ? this.props.errorToleranceMargin : 50;
 
     // Make sure that value of errorToleranceMargin is a Number greater than 0
@@ -136,8 +135,8 @@ export class SliderPicker extends Component {
     //
     // General Styling Props checking
     //
-    this.fillColor =  this.props.fillColor ? this.props.fillColor : 'dodgerblue';
-    this.heightPercentage =  this.props.heightPercentage ? this.props.heightPercentage : 1;
+    this.fillColor = this.props.fillColor ? this.props.fillColor : 'dodgerblue';
+    this.heightPercentage = this.props.heightPercentage ? this.props.heightPercentage : 1;
     this.maxLabel = this.props.maxLabel ? this.labelGenerator(this.props.maxLabel, 'right') : this.emptyLabel;
     this.midLabel = this.props.midLabel ? this.labelGenerator(this.props.midLabel, 'center') : this.emptyLabel;
     this.minLabel = this.props.minLabel ? this.labelGenerator(this.props.minLabel, 'left') : this.emptyLabel;
@@ -149,8 +148,8 @@ export class SliderPicker extends Component {
     //
     // Specific Styling Props checking
     //
-    this.buttonBackgroundColor =  this.props.buttonBackgroundColor ? this.props.buttonBackgroundColor : 'white';
-    this.buttonBorderColor =  this.props.buttonBorderColor ? this.props.buttonBorderColor : 'dimgrey';
+    this.buttonBackgroundColor = this.props.buttonBackgroundColor ? this.props.buttonBackgroundColor : 'white';
+    this.buttonBorderColor = this.props.buttonBorderColor ? this.props.buttonBorderColor : 'dimgrey';
     this.buttonBorderWidth = this.props.buttonBorderWidth ? this.props.buttonBorderWidth : 1;
     this.buttonDimensionsPercentage = this.props.buttonDimensionsPercentage ? this.props.buttonDimensionsPercentage : 6;
     this.labelFontColor = this.props.labelFontColor ? this.props.labelFontColor : 'dimgrey';
@@ -184,7 +183,7 @@ export class SliderPicker extends Component {
     //
     // Styling props for screen reader numeric input container styles
     //
-    this.numericInputContainerStyles = this.props.numericInputContainerStyles ? 
+    this.numericInputContainerStyles = this.props.numericInputContainerStyles ?
       this.props.numericInputContainerStyles :
       this.defaultNumericInputContainerStyles;
 
@@ -217,7 +216,7 @@ export class SliderPicker extends Component {
     //
 
     // Make copy of styles.selectionFill to modify programmatically below
-    let selectionFillStyles = this.selectionFillStylesOverride ? 
+    let selectionFillStyles = this.selectionFillStylesOverride ?
       Object.assign({}, this.selectionFillStylesOverride) :
       Object.assign({}, styles.selectionFill);
 
@@ -232,8 +231,8 @@ export class SliderPicker extends Component {
     this.styleChecker(selectionFillStyles, 'backgroundColor', this.fillColor);
 
     // Make copy of styles.sliderInner to modify programmatically below
-    let sliderInnerStyles = this.sliderInnerStylesOverride ? 
-      Object.assign({}, this.sliderInnerStylesOverride) : 
+    let sliderInnerStyles = this.sliderInnerStylesOverride ?
+      Object.assign({}, this.sliderInnerStylesOverride) :
       Object.assign({}, styles.sliderInner);
 
     // Set height of sliderInnerStyles based on props.heightPercentage
@@ -258,9 +257,9 @@ export class SliderPicker extends Component {
     if (this.state.screenReaderEnabled && this.convertToNumericInputOnScreenReader) {
       return (
         <View style={this.numericInputContainerStyles}
-              accessible={true}
-              accessibilityLabel={this.accessibilityLabel}
-              accessibilityHint={this.accessibilityHint}
+          accessible={true}
+          accessibilityLabel={this.accessibilityLabel}
+          accessibilityHint={this.accessibilityHint}
         >
           <TextInput
             keyboardType="numeric"
@@ -280,14 +279,14 @@ export class SliderPicker extends Component {
         activeOpacity={1}
         onPress={(evt) => this.handleWrapperPress(evt.nativeEvent.locationX)}
       >
-  
-        { /* Labels */ }
+
+        { /* Labels */}
         <View style={this.labelsContainerStyles}>
           {this.minLabel}
           {this.midLabel}
           {this.maxLabel}
         </View>
-  
+
         {/* Slider itself */}
         <View style={[sliderInnerStyles, this.sliderInnerBorderStyles]}>
 
@@ -295,7 +294,7 @@ export class SliderPicker extends Component {
           {this.showFill ? <View style={selectionFillStyles}></View> : null}
 
           {/* SliderPickerCursor button */}
-          <SliderPickerCursor 
+          <SliderPickerCursor
             maxOffset={vw(this.widthPercentage)}
             defaultValue={this.defaultValue}
             triggerNonDraggablePress={this.state.triggerNonDraggablePress}
@@ -311,11 +310,11 @@ export class SliderPicker extends Component {
             errorToleranceMargin={this.errorToleranceMargin}
           />
         </View>
-  
-        { /* Lines between the numbers */ }
+
+        { /* Lines between the numbers */}
         {this.generateSeparators()}
-  
-        { /* Buttons for picking a value */ }
+
+        { /* Buttons for picking a value */}
         {this.generateNumbers()}
 
       </TouchableOpacity>
@@ -346,7 +345,7 @@ export class SliderPicker extends Component {
     this.setState({ numericInputValue: val }, () => {
       // Make sure value isn't greater than this.maxValue
       if (Number(this.state.numericInputValue) > this.maxValue) {
-        this.setState({ 
+        this.setState({
           numericInputValue: String(this.maxValue)
         }, () => {
           this.callback(this.state.numericInputValue);
@@ -356,7 +355,7 @@ export class SliderPicker extends Component {
       }
       // Make sure value isn't less than this.minValue
       else if (Number(this.state.numericInputValue) < this.minValue) {
-        this.setState({ 
+        this.setState({
           numericInputValue: String(this.minValue)
         }, () => {
           this.callback(this.state.numericInputValue);
@@ -378,7 +377,7 @@ export class SliderPicker extends Component {
    */
   styleChecker = (styleObject, key, value) => {
     // If current style object doesn't include key passed
-    if ( !Object.keys(styleObject).includes(key) ) {
+    if (!Object.keys(styleObject).includes(key)) {
       // Update it to value passed
       styleObject[key] = value;
     }
@@ -459,7 +458,7 @@ export class SliderPicker extends Component {
     }
 
     let separatorStyles = this.separatorStylesOverride ?
-      Object.assign({}, this.separatorStylesOverride) : 
+      Object.assign({}, this.separatorStylesOverride) :
       Object.assign({}, styles.separatorLine);
 
     // Adjust height of separators to three times the height of the slider
@@ -473,9 +472,9 @@ export class SliderPicker extends Component {
    * @return {Boolean} Returns true is no label props were passed, returns false otherwise
    */
   handleLabelCheck = () => {
-  if  (this.minLabel === this.emptyLabel && 
-        this.midLabel === this.emptyLabel &&
-        this.maxLabel === this.emptyLabel
+    if (this.minLabel === this.emptyLabel &&
+      this.midLabel === this.emptyLabel &&
+      this.maxLabel === this.emptyLabel
     ) {
       return true;
     }
@@ -487,7 +486,7 @@ export class SliderPicker extends Component {
    * @return {Number} Returns new width of selectionFill based on currentValue
    */
   handleSelectionFillWidth = () => {
-    return (vw(this.widthPercentage) * (this.state.currentValue / (this.maxValue) )) - (vh(1) * .5);
+    return (vw(this.widthPercentage) * (this.state.currentValue / (this.maxValue))) - (vh(1) * .5);
   }
 
   /** 
@@ -536,7 +535,7 @@ export class SliderPicker extends Component {
   separatorGenerator = (index) => {
     return (
       <View key={index} style={this.handleSeparatorStyle(index)}>
-        <Text style={{ color: 'transparent'}}>|</Text> 
+        <Text style={{ color: 'transparent' }}>|</Text>
       </View>
     );
   }
@@ -604,13 +603,13 @@ export class SliderPicker extends Component {
       // Initialize width variable to set the width of each TouchableHighlight.
       // Default value is the rounded down - numbersContainers width divided by this.maxValue - 0 (number of options).
       let width = Math.floor(vw(this.widthPercentage) / (this.maxValue));
-      
+
       // If first TouchableHighlight, add extra width to account for the width of separatorLine.
       width = i === 0 ? width + ((vw(1) / 3) * 2) : width;
 
       // Push styled TouchableHighlight
       numbers.push(
-        <TouchableHighlight 
+        <TouchableHighlight
           key={i}
           style={[styles.buttonTouchable, { width: width }]} // Add width here
         >
@@ -651,7 +650,7 @@ const styles = StyleSheet.create({
   //
   // Container for labels. (View component)
   //
-  labelsContainer: { 
+  labelsContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -669,8 +668,11 @@ const styles = StyleSheet.create({
   //
   sliderInner: {
     justifyContent: 'center',
-    height: vh(1),
+    height: 15, // burası genel heigh
     zIndex: 20,
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#CCC'
   },
   //
   // Container for separator lines, layered behind the sliderContainer. View component
@@ -678,7 +680,8 @@ const styles = StyleSheet.create({
   separatorContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    position: 'relative'
+    position: 'relative',
+
   },
   //
   // Lines separating each "section" of the slider. View components.
@@ -687,16 +690,17 @@ const styles = StyleSheet.create({
     borderLeftWidth: vw(1) / 3,
     borderLeftColor: 'gainsboro',
     left: vw(1) / 3,
+    backgroundColor: 'green',
     position: 'relative',
   },
   //
   // The styled indication bar. Width is dependent on currently-picked value. View component
   //
   selectionFill: {
-    borderRadius: 50,
+    borderRadius: 1, // burası içi
     height: vw(2) * .65,
     position: 'absolute',
-  },  
+  },
   //
   // Container for numbers. View component
   //
@@ -704,7 +708,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: vh(2),
-    ... Platform.select({
+    ...Platform.select({
       ios: {
         zIndex: 10
       }
@@ -740,7 +744,7 @@ const styles = StyleSheet.create({
     padding: vw(4),
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    ... Platform.isPad ? ({
+    ...Platform.isPad ? ({
       marginTop: vh(4)
     }) : null
   },
@@ -758,7 +762,7 @@ const styles = StyleSheet.create({
     padding: vw(4),
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    ... Platform.isPad ? ({
+    ...Platform.isPad ? ({
       marginTop: vh(4)
     }) : null
   },
@@ -768,7 +772,7 @@ const styles = StyleSheet.create({
   numberTextInput: {
     flex: 1,
     fontSize: Math.ceil(vw(3) * 1.3),
-    ... Platform.select({
+    ...Platform.select({
       ios: {
         marginTop: vw(2)
       },
