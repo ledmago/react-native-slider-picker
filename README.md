@@ -6,6 +6,30 @@ A lean, custom React Native input component to select a single value on a scale 
 
 `npm install react-native-slider-picker`
 
+
+<SliderPicker
+
+        maxValue={100}
+        callback={position => {
+          console.log(position)
+          // this.setState({ value: position });
+        }}
+        defaultValue={20}
+        labelFontColor={"#6c7682"}
+        labelFontWeight={'600'}
+        showFill={true}
+        fillColor={'#03acef'}
+        labelFontWeight={'bold'}
+        showNumberScale={false}
+        showSeparatorScale={false}
+        buttonBackgroundColor={'transparent'}
+        buttonBorderColor={"transparent"}
+        buttonBorderWidth={0}
+        scaleNumberFontWeight={'300'}
+        buttonDimensionsPercentage={0}
+        heightPercentage={2}
+        widthPercentage={60}
+      />
 ## Required dependencies
 
 React Native Slider Picker's sole dependency is [react-native-css-vh-vw](https://github.com/graftonstudio/react-native-css-vh-vw), which is used for height and width dimensions.
