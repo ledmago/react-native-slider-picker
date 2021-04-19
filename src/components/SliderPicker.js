@@ -513,7 +513,7 @@ export class SliderPicker extends Component {
     this.setState({
       currentValue: value,
       triggerNonDraggablePress: false
-    }, () => this.callback(value, findPosition))
+    }, () => this.callback(value, findPosition, this.props.videoDuration))
   }
 
   /** 
