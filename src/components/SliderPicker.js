@@ -82,7 +82,7 @@ export class SliderPicker extends Component {
       borderTopLeftRadius: 10,
       borderTopRightRadius: 10,
       ...Platform.isPad ? ({
-        marginTop: vh(4)
+        marginTop: 0
       }) : null
     }
 
@@ -92,7 +92,7 @@ export class SliderPicker extends Component {
       fontSize: Math.ceil(vw(3) * 1.3),
       ...Platform.select({
         ios: {
-          marginTop: vw(2)
+          marginTop: 0
         },
         android: {
           paddingBottom: 0,
@@ -507,10 +507,13 @@ export class SliderPicker extends Component {
    * @return {Function} Executes props.callback and state updaters for both currentValue and triggerNonDraggablePress.
    */
   handleChildRelease = (value) => {
+
+    const findPosition = value * this.props.videoDuration / 100;
+
     this.setState({
       currentValue: value,
       triggerNonDraggablePress: false
-    }, () => this.callback(value));
+    }, () => this.callback(value, findPosition))
   }
 
   /** 
@@ -745,7 +748,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     ...Platform.isPad ? ({
-      marginTop: vh(4)
+      marginTop: 0
     }) : null
   },
   //
@@ -763,7 +766,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     ...Platform.isPad ? ({
-      marginTop: vh(4)
+      marginTop: 0
     }) : null
   },
   //
@@ -774,7 +777,7 @@ const styles = StyleSheet.create({
     fontSize: Math.ceil(vw(3) * 1.3),
     ...Platform.select({
       ios: {
-        marginTop: vw(2)
+        marginTop: 0
       },
       android: {
         paddingBottom: 0,
