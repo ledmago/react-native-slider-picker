@@ -781,7 +781,7 @@ const styles = StyleSheet.create({
       },
       android: {
         paddingBottom: 0,
-        paddingTop: 0
+        paddingTop: 0,
       }
     }),
   }
